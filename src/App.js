@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+const axios = require("axios");
 
 function App() {
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await axios.get(`https://yts.mx/api/v2/list_movies.json`);
+      console.log(res.data.data.movies);
+      setMovies(res.data.data.movies);
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ul>
+        {movies.length}
+        {movies.map((movie) => (
+          <li key={movie.id}>
+            {movie.title} {console.log(movie.torrents[0].url)}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
