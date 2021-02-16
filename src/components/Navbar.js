@@ -59,7 +59,6 @@ const useStyles = makeStyles((theme) => ({
 const Navbar = () => {
   const classes = useStyles();
   const contextData = useContext(MyContext);
-  console.log(contextData.searchTerm);
 
   return (
     <div className={classes.grow}>
@@ -79,6 +78,9 @@ const Navbar = () => {
                 input: classes.inputInput,
               }}
               inputProps={{ "aria-label": "search" }}
+              onChange={(e) => {
+                contextData.setSearchTerm(e.target.value);
+              }}
             />
           </div>
           <div className={classes.grow} />
