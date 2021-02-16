@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from "react";
 import CardGrid from "./CardGrid";
 import MovieCard from "./MovieCard";
 import { MyContext } from "../Context/MyContext";
-// const axios = require("axios");
 import axios from "axios";
 
 const Movies = () => {
@@ -13,8 +12,9 @@ const Movies = () => {
       contextData.setLoading(true);
       const res = await axios.get(
         `https://yts.mx/api/v2/list_movies.json?query_term=${contextData.searchTerm}&sort_by=rating&limit=5`
+        //For testing  `https://yts.mx/api/v2/list_movies.json?query_term=titanic&sort_by=rating&limit=5`
       );
-      console.log(res.data.data.movies);
+      //   console.log(res.data.data.movies[0].torrents);
       contextData.setMovies(res.data.data.movies);
       contextData.setLoading(false);
     };
@@ -33,6 +33,7 @@ const Movies = () => {
               year={movie.year}
               rating={movie.rating}
               cover={movie.medium_cover_image}
+              torrents={movie.torrents}
             />
           ))}
         />
